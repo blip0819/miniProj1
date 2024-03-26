@@ -17,5 +17,7 @@
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/lombok.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/mariadb-java-client-2.4.0.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/ojdbc8-19.12.0.0.jar"/>
+	<classpathentry kind="lib" path="/Users/admin/Downloads/junit-4.4.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/junit-4.4.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
