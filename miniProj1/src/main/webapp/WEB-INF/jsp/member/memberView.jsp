@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <title>마이페이지</title>
     <style>
-        #update-form {
+        #member-view {
             padding: 25px 50px 50px;
             background-color: #faf6d9;
             text-align: left;
@@ -29,7 +29,6 @@
         }
 
         .form-group input[type="text"],
-        .form-group input[type="PW"],
         .form-group input[type="number"],
         .form-group input[type="radio"],
         .form-group input[type="checkbox"] {
@@ -58,74 +57,64 @@
     </style>
 </head>
 <body>
-<nav>
-    <ul>
-        <li><a href="corpInfo.html">회사 소개</a></li>
-        <li><a href="signUpForm.jsp">회원가입</a></li>
-        <li><a href="loginForm.jsp">로그인</a></li>
-        <li><a href="boardlistDefault.jsp">게시판</a></li>
-    </ul>
-</nav>
+	<nav>
+	    <ul>
+	        <li><a href="corpInfo.html">회사 소개</a></li>
+	        <li><a href="signUpForm.jsp">회원가입</a></li>
+	        <li><a href="loginForm.jsp">로그인</a></li>
+	        <li><a href="boardlistDefault.jsp">게시판</a></li>
+	    </ul>
+	</nav>
+	
+	<div id="container">
+	    <img src="img/건강챙겨.png" width=360px>
+	    <div id="member-view">
+	      <label>아이디 : ${member.memberID}</label> <br/>
+	      <label>이름 : ${member.memberName}</label><br/>
+	      <label>주소: ${member.memberADDR}</label><br/>
+	      <label>전화번호: ${member.memberPhone}</label><br/>
+	      <label>성별: ${member.memberGen}</label><br/>
+	
+	<script>
+	function jsDelete() {
+		if (confirm("정말로 삭제하시겠습니까?")) {
 
-<div id="container">
-    <img src="img/건강챙겨.png" width=360px>
-    <div id="update-form">
-        <h1>마이페이지</h1>
-        <form id="rForm" action="member.do" method="post">
-            <input type="hidden" name="action" value="insert">
-            
-            <div class="form-group">
-                <label for="memberid">아이디 :</label>
-                    <input type="text" id="memberid" name="memberid" required="required" readonly>
-            </div>
-            
-            <div class="form-group">
-                <label for="membername">이름 :</label>
-                <input type="text" id="membername" name="membername" required="required" readonly>
-            </div>
-            
-            <div class="form-group">
-                <label for="memberADDR">주소 :</label>
-                <input type="text" id="memberADDR" name="memberADDR" required="required" readonly>
-            </div>
-            
-            <div class="form-group">
-                <label for="memberphone">전화번호 :</label>
-                <input type="text" id="memberphone" name="memberphone" required="required" readonly>
-            </div>
-
-            <label>성별:</label>
-            <div class="gender-container">
-                <input type="radio" id="male" name="gender" value="male">
-                <label for="male" class="radio-label">남</label>
-                <input type="radio" id="female" name="gender" value="female">
-                <label for="female" class="radio-label">여</label>
-            </div>
-            <br>
-            <label>취미:</label><br>
-            <div>
-                <input type="checkbox" id="hobby1" name="hobby1" value="Exercising">
-                <label for="hobby1">운동</label>
-            </div>
-            <div>
-                <input type="checkbox" id="hobby2" name="hobby2" value="Cooking">
-                <label for="hobby2">요리</label>
-            </div>
-		<div>
-		    <input type="checkbox" id="hobby3" name="hobby3" value="Movies">
-		    <label for="hobby3">영화 감상</label>
-		</div>
-		<div>
-		    <input type="checkbox" id="hobby4" name="hobby4" value="Fishing">
-		    <label for="hobby4">낚시</label>
-		</div>
-		<br>
-        <input type="submit" value="수정" >
-        <a href="member.do?action=list">취소</a>
-        </form>
-    </div>
-    <img src="img/아프지마.jpeg" width=360px>
-    </div>
+			viewForm.action = "memberDelete.jsp";
+			viewForm.submit();
+		}
+	}
+	
+	function jsUpdateForm() {
+		if (confirm("정말로 수정하시겠습니까?")) {
+			viewForm.action = "memberUpdateForm.jsp";
+			viewForm.submit();
+		}	
+	}
+	</script>
+		<form id="viewForm" method="post">
+			<input type="hidden" name="userid" value="${member.memberID}">
+			<input type="button" value="삭제" onclick="jsDelete()">
+			<input type="button" value="수정" onclick="jsUpdateForm()">
+		</form>     
+	 
+		<form action="delete.jsp" method="post">
+			<input type="hidden" name="userid" value="${member.memberID}">
+			<input type="submit" value="삭제">
+		</form>     
+		
+		<form action="updateForm.jsp" method="post">
+			<input type="hidden" name="userid" value="${member.memberID}">
+			<input type="submit" value="수정">
+		</form>     
+		
+	    <div>
+	        <a href="list.jsp">목록</a>
+	        <a href="updateForm.jsp?userid=${member.memberID}">수정</a>
+	        <a href="delete.jsp?userid=${member.memberID}">삭제</a>
+	    </div>
+	    <img src="img/아프지마.jpeg" width=360px>
+	    </div>
+	</div>
 
 </body>
 </html>

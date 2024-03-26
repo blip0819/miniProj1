@@ -11,13 +11,17 @@ public class Test {
 	public static void main(String[] args) {
 		
 		MemberDAO memberDAO = new MemberDAO();
-		List<MemberVO> memberVOs = memberDAO.list();
+//		List<MemberVO> memberVOs = memberDAO.list();
+//		
+//		for(var member : memberVOs) {
+//			System.out.println(member);
+//		}
+//		
+//		System.out.println("야 성공했냐?");
 		
-		for(var member : memberVOs) {
-			System.out.println(member);
-		}
+		MemberVO m = memberDAO.view("blip0819");
 		
-		System.out.println("야 성공했냐?");
+		System.out.println(m);
 		
 	}
 }

@@ -14,6 +14,7 @@ import org.eclipse.jdt.internal.compiler.batch.Main;
 public class MemberDAO {
 	private static Connection conn = null;
     private static PreparedStatement memberListPstmt = null;
+    private static PreparedStatement memberViewPstmt = null;
 
 	static {
 
@@ -28,6 +29,7 @@ public class MemberDAO {
             conn.setAutoCommit(false);
 
             memberListPstmt = conn.prepareStatement("select * from TB_MEMBER");
+            memberViewPstmt = conn.prepareStatement("select * from TB_MEMBER where memberID=?");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -58,6 +60,30 @@ public class MemberDAO {
             e.printStackTrace();
         }
         return list;
+    }
+	
+	public MemberVO view(String memberID) {
+
+        MemberVO memberVO = null;
+        try {
+            memberViewPstmt.setString(1, memberID);
+
+            ResultSet rs = memberViewPstmt.executeQuery();
+            if (rs.next()) {
+            	memberVO = new MemberVO(
+                		  rs.getString("memberName")
+                        , rs.getString("memberID")
+                        , rs.getString("memberADDR")
+                        , rs.getString("memberPhone")
+                        , rs.getString("memberGen")
+                		);
+            }
+            rs.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return memberVO;
     }
 
 }

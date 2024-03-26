@@ -49,7 +49,7 @@
     </nav>
     	
     <h1>회원 목록</h1>
-    <form id="searchForm" action="board.do" method="post" style="margin-left: 200px;">
+    <form id="searchForm" action="member.do" method="post" style="margin-left: 200px;">
     	<input type="hidden" id="action" name="action" value="list">
     	<label style="font-size: 16pt;">아이디</label>
     	<input type="text" id="searchKey" name="searchKey" value="${param.searchKey}">
@@ -71,7 +71,9 @@
         </tr>
         <c:forEach var="member" items="${list}">
         <tr>
-            <td onclick="jsView('${member.memberID}')"  style="cursor:pointer;">${member.memberID}</td>
+            <td onclick="jsView('${member.memberID}')"style="cursor:pointer;">
+            <a href="member?action=memberView&memberID=${member.memberID}">${member.memberID}</a>
+            </td>
             <td>${member.memberName}</td>
             <td>${member.memberADDR}</td>
             <td>${member.memberPhone}</td>
@@ -83,7 +85,7 @@
     <script>
 	function jsView(mid) {
 		memberID.value = mid;
-		listForm.submit();
+		memberView.submit();
 	}
 	</script>    
     
