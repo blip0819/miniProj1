@@ -43,21 +43,21 @@ public class MemberServlet extends HttpServlet {
 	}
 
 	private void doService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		request.setCharacterEncoding("utf-8");
 		String action = request.getParameter("action");
 		switch(action) {
-		case "list" -> list(request, response);
+		case "memberList" -> memberList(request, response);
 		}
 		
-		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/members/"+action+".jsp");
-		rd.forward(request, response);
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/member/" + action + ".jsp");
+	    rd.forward(request, response);
 	}
 
-	private void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void memberList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("목록");
 		
-		List<MemberDAO> list = memberDAO.list();
+		List<MemberVO> list = memberDAO.list();
 		request.setAttribute("list", list);
 	}
 
