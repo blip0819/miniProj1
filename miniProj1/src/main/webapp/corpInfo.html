@@ -1,19 +1,63 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>회사 소개</title>
+	<link href="css/menu.css" rel="stylesheet">
+	<link href="css/font.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>회사 소개</title>
+    <style>
+        #content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        #text {
+            flex: 1;
+            text-align: center;
+            align-self: flex-start;
+            margin: 0 auto;
+        }
+
+        .image-wrapper {
+            text-align: center;
+            margin: 10px;
+            margin-top: 0;
+        }
+    </style>
 </head>
-<h1>회사 소개</h1>
 <body>
-<h3>인사말</h3>
-안녕하세요 <br>
+    <nav>
+        <ul>
+            <li><a href="corpInfo.html">회사 소개</a></li>
+            <li><a href="signUpForm.jsp">회원가입</a></li>
+            <li><a href="loginForm.jsp">로그인</a></li>
+            <li><a href="boardlistDefault.jsp">게시판</a></li>
+        </ul>
+    </nav>
 
-<h3>연혁</h3>
-
-
-<h3>위치</h3>
-
-
+    <div id="content">
+        <div class="image-wrapper">
+            <img src="img/사서고생모임.jpeg" width="480px" height="auto">
+            <img src="img/타조러닝.gif" width="480px">
+        </div>
+        <div id="text">
+            <h1>회사 소개</h1>
+            안녕하세요<br>
+            사서 고생하는 사람들의 모임입니다.<br>
+            <h3>연혁</h3>
+            1898 주짓수 구구단 취득<br>
+            1967 주먹구구단 취득<br>
+            2023 롯데 구구콘 취득<br>
+            2043 구구팔십일<br>
+            <h3>위치</h3>
+            <div>1400 Defense Pentagon, Washington, DC 20301-1400</div> <br>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3106.279914766862!2d-77.05894022338842!3d38.87183717172951!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b7ab9a6c1f49d3%3A0x35ebc05b657f7127!2sUS%20Defense%20Department!5e0!3m2!1sko!2skr!4v1711418828058!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="image-wrapper">
+		    <img src="img/날로먹기모임.jpeg" width="480px" height="auto">
+            <img src="img/타조유턴.gif" width="480px" height="394px">
+		</div>
+    </div>
 </body>
 </html>
