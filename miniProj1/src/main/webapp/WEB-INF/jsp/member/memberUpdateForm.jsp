@@ -5,57 +5,10 @@
 <html lang="en">
 <head>
 <link href="css/menu.css" rel="stylesheet">
+<link href="css/layout.css" rel="stylesheet">
 <link href="css/font.css" rel="stylesheet">
     <meta charset="UTF-8">
     <title>마이페이지</title>
-    <style>
-        #update-form {
-            padding: 25px 50px 50px;
-            background-color: #faf6d9;
-            text-align: left;
-            width: 360px;
-            margin: 0 auto;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-            text-align: left;
-        }
-
-        .form-group label {
-            width: 120px;
-            display: inline-block;
-            vertical-align: top;
-        }
-
-        .form-group input[type="text"],
-        .form-group input[type="PW"],
-        .form-group input[type="number"],
-        .form-group input[type="radio"],
-        .form-group input[type="checkbox"] {
-            width: 25%;
-        }
-
-        .form-group button {
-            margin-left: 10px;
-        }
-
-        h1 {
-            text-align: center;
-        }
-
-        #container {
-            display: flex;
-            justify-content: space-around;
-            align-items: flex-start;
-        }
-
-        #container img {
-            width: 30%;
-            height: auto;
-            margin: 0 auto;
-        }
-    </style>
 </head>
 <body>
 <nav>
