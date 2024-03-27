@@ -67,20 +67,20 @@
             <br>
             <label>취미:</label><br>
             <div>
-                <input type="checkbox" id="hobby1" name="hobby1" value="Exercising">
-                <label for="hobby1">운동</label>
+                <input type="checkbox" id="hobby1" name="hobby" value="Exercising">
+                <label for="hobby">운동</label>
             </div>
             <div>
-                <input type="checkbox" id="hobby2" name="hobby2" value="Cooking">
-                <label for="hobby2">요리</label>
+                <input type="checkbox" id="hobby2" name="hobby" value="Cooking">
+                <label for="hobby">요리</label>
             </div>
 		<div>
-		    <input type="checkbox" id="hobby3" name="hobby3" value="Movies">
-		    <label for="hobby3">영화 감상</label>
+		    <input type="checkbox" id="hobby3" name="hobby" value="Movies">
+		    <label for="hobby">영화 감상</label>
 		</div>
 		<div>
-		    <input type="checkbox" id="hobby4" name="hobby4" value="Fishing">
-		    <label for="hobby4">낚시</label>
+		    <input type="checkbox" id="hobby4" name="hobby" value="Fishing">
+		    <label for="hobby">낚시</label>
 		</div>
 		<br>
         <input type="submit" value="수정" >

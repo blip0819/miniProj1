@@ -49,8 +49,7 @@
     </nav>
     	
     <h1>회원 목록</h1>
-    <form id="searchForm" action="member.do" method="post" style="margin-left: 200px;">
-    	<input type="hidden" id="action" name="action" value="list">
+    <form id="searchForm" action="memberList.jsp" method="get" style="margin-left: 200px;">
     	<label style="font-size: 16pt;">아이디</label>
     	<input type="text" id="searchKey" name="searchKey" value="${param.searchKey}">
     	<input type="submit" value="검색">

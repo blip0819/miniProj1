@@ -36,6 +36,27 @@
 		if (confirm("정말로 탈퇴하시겠습니까?")) {
 			action.value= "memberDelete";
 			viewForm.submit();
+			
+			 const memberID = document.getElementById("memberID"); 
+		    	const param = {
+					 action : 'memberDelete'
+					,memberID : memberID.value
+		    	} 
+			    	
+				fetch("member.do", {
+					method:"POST",
+					body:JSON.stringify(param),
+					headers : {"Content-type" : "application/json; charset=utf-8"}
+				}).then(res => res.json()).then(json => {
+					console.log("json ", json );
+					if(json.status == 0) {
+						//성공
+						alert("탈퇴가 완료되었습니다");
+						location = "member.do?action=memberList";
+					} else {
+						alert(json.statusMessage);
+					}
+				});
 		}
 	}
 	

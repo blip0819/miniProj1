@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.catalina.User;
 import org.apache.taglibs.standard.lang.jstl.test.beans.PublicBean1;
 import org.eclipse.jdt.internal.compiler.batch.Main;
 
@@ -15,6 +16,7 @@ import org.eclipse.jdt.internal.compiler.batch.Main;
 public class MemberDAO {
 	private static Connection conn = null;
     private static PreparedStatement memberListPstmt = null;
+    private static PreparedStatement memberListPstmt2 = null;
     private static PreparedStatement memberViewPstmt = null;
     private static PreparedStatement memberDeletePstmt = null;
 
@@ -31,6 +33,7 @@ public class MemberDAO {
             conn.setAutoCommit(false);
 
             memberListPstmt = conn.prepareStatement("select * from TB_MEMBER");
+            memberListPstmt2 = conn.prepareStatement("select * from TB_MEMBER where memberID like ?");
             memberViewPstmt = conn.prepareStatement("select * from TB_MEMBER where memberID=?");
             memberDeletePstmt = conn.prepareStatement("delete from TB_MEMBER where memberID=?");
         } catch (ClassNotFoundException e) {
@@ -41,15 +44,20 @@ public class MemberDAO {
         
     }
 
-	public List<MemberVO> list(){
+	public List<MemberVO> memberList(MemberVO member){
         List<MemberVO> list = new ArrayList<>();
         try {
-            ResultSet rs = memberListPstmt.executeQuery();
+            ResultSet rs = null;
+            if(member.isEmptySearchKey() || member ==null) {
+            	memberListPstmt2.setString(1, member.getSearchKey());
+            	rs = memberListPstmt2.executeQuery();
+            } else {
+            	memberListPstmt.executeQuery();
+            }
             
             while (rs.next()) {
                 MemberVO memberVO = new MemberVO(
                 		  rs.getString("memberID")
-                        , rs.getString("memberPW")
                         , rs.getString("memberName")
                         , rs.getString("memberADDR")
                         , rs.getString("memberPhone")
@@ -65,10 +73,10 @@ public class MemberDAO {
         return list;
     }
 	
-	public MemberVO view(String memberID) {
-        MemberVO memberVO = null;
+	public MemberVO memberView(MemberVO memberVO) {
+        MemberVO member = null;
         try {
-            memberViewPstmt.setString(1, memberID);
+            memberViewPstmt.setString(1, memberVO.getMemberID());
 
             ResultSet rs = memberViewPstmt.executeQuery();
             if (rs.next()) {
@@ -85,14 +93,14 @@ public class MemberDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return memberVO;
+        return member;
     }
 	
-	public int delete(String memberID) {
+	public int memberDelete(MemberVO member) {
         int updated = 0;
 
         try {
-            memberDeletePstmt.setString(1, memberID);
+            memberDeletePstmt.setString(1, member.getMemberID());
             updated = memberDeletePstmt.executeUpdate();
             conn.commit();
         } catch (Exception e) {
