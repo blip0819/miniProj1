@@ -48,11 +48,13 @@ public class MemberDAO {
         List<MemberVO> list = new ArrayList<>();
         try {
             ResultSet rs = null;
-            if(member.isEmptySearchKey() || member ==null) {
-            	memberListPstmt2.setString(1, member.getSearchKey());
+            if(member !=null && !member.isEmptySearchKey()) {
+            	memberListPstmt2.setString(1, "%" + member.getSearchKey() + "%");
+            	System.out.println("DAO 서치키 정상 작동");
             	rs = memberListPstmt2.executeQuery();
             } else {
-            	memberListPstmt.executeQuery();
+            	System.out.println("DAO 전체 목록 정상 작동");
+            	rs = memberListPstmt.executeQuery();
             }
             
             while (rs.next()) {
@@ -61,9 +63,7 @@ public class MemberDAO {
                         , rs.getString("memberName")
                         , rs.getString("memberADDR")
                         , rs.getString("memberPhone")
-                        , rs.getString("memberGen")
-                        );
-                
+                        , rs.getString("memberGen"));
                 list.add(memberVO);
             }
             rs.close();
@@ -77,7 +77,7 @@ public class MemberDAO {
         MemberVO member = null;
         try {
             memberViewPstmt.setString(1, memberVO.getMemberID());
-
+            System.out.println("DAO 쿼리문 정상 작동");
             ResultSet rs = memberViewPstmt.executeQuery();
             if (rs.next()) {
             	memberVO = new MemberVO(
@@ -93,7 +93,9 @@ public class MemberDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return member;
+        
+        System.out.println("memberView->" + memberVO);
+        return memberVO;
     }
 	
 	public int memberDelete(MemberVO member) {

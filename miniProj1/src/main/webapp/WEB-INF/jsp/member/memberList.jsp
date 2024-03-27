@@ -49,14 +49,15 @@
     </nav>
     	
     <h1>회원 목록</h1>
-    <form id="searchForm" action="memberList.jsp" method="get" style="margin-left: 200px;">
+    <form id="searchForm" action="member" method="get" style="margin-left: 200px;">
     	<label style="font-size: 16pt;">아이디</label>
     	<input type="text" id="searchKey" name="searchKey" value="${param.searchKey}">
+    	<input type="hidden" name="action" value="memberList">
     	<input type="submit" value="검색">
     </form>
     
     <form id="listForm" action="member.do" method="post">
-    	<input type="hidden" id="action" name="action" value="view">
+    	<input type="hidden" id="action" name="action" value="memberView">
     	<input type="hidden" id="memberID" name="memberID" >
     </form>
    

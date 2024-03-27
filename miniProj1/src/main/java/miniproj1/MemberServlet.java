@@ -22,7 +22,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @WebServlet("/member")
 public class MemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	MemberDAO memberDAO = new MemberDAO();
 	MemberController memberController = new MemberController();
        
     /**
@@ -72,7 +71,7 @@ public class MemberServlet extends HttpServlet {
 		} else if (contentType.startsWith("application/json")) {
 			memberVO = objectMapper.readValue(request.getInputStream(), MemberVO.class);
 		}
-		System.out.println("memberVO " + memberVO);
+		System.out.println("memberVO " + memberVO + "여깅여기");
 		
 		String action = memberVO.getAction();
 		Object result = switch(action) {

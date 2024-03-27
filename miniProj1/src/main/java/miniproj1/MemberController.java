@@ -24,32 +24,31 @@ import miniproj1.*;
 public class MemberController {
 	private static final long serialVersionUID = 1L;
 
-	MemberService userService = new MemberService();
+	MemberService memberService = new MemberService();
     /**
      * @see HttpServlet#HttpServlet()
      */
-	
-	MemberService memberService = new MemberService();
-	
+		
     public MemberController() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-    public Object memberList(HttpServletRequest request, MemberVO memberVO) throws ServletException, IOException {
+    public Object memberList(HttpServletRequest request, MemberVO member) throws ServletException, IOException {
 		System.out.println("목록");
 		
-		List<MemberVO> list = memberService.memberList(memberVO);
+		List<MemberVO> list = memberService.memberList(member);
+		System.out.println("컨트롤러까지는 성공");
 		request.setAttribute("list", list);
-		
-		return "list";
+		return "memberList";
 	}
 	
-    public Object memberView(HttpServletRequest request, MemberVO memberVO) throws ServletException, IOException {
+    public Object memberView(HttpServletRequest request, MemberVO member) throws ServletException, IOException {
         System.out.println("상세보기");
 
-        request.setAttribute("member", memberService.memberView(memberVO));
-        return "view";
+        request.setAttribute("member", memberService.memberView(member));
+        System.out.println("컨트롤러 왔다갔다 성공" + request.getAttribute("member"));
+        return "memberView";
     }
 
     public Object memberDelete(HttpServletRequest request, MemberVO member) throws ServletException, IOException {
