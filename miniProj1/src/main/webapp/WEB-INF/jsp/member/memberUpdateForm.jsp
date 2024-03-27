@@ -14,9 +14,9 @@
 <nav>
     <ul>
         <li><a href="corpInfo.html">회사 소개</a></li>
-        <li><a href="signUpForm.jsp">회원가입</a></li>
-        <li><a href="loginForm.jsp">로그인</a></li>
-        <li><a href="boardlistDefault.jsp">게시판</a></li>
+        <li><a href="member?action=memberList">회원목록</a></li>
+        <li><a href="member?action=logout">로그아웃</a></li>
+        <li><a href="board?action=boardlistDefault">게시판</a></li>
     </ul>
 </nav>
 
@@ -84,7 +84,7 @@
 		</div>
 		<br>
         <input type="submit" value="수정" >
-        <a href="member.do?action=list">취소</a>
+        <a href="member.do?action=memberView">취소</a>
         </form>
     </div>
     <img src="img/아프지마.jpeg" width=360px>

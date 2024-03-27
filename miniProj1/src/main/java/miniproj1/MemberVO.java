@@ -1,4 +1,4 @@
-package miniProj1;
+package miniproj1;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

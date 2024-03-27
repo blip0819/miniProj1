@@ -1,4 +1,4 @@
-package miniProj1;
+package miniproj1;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,10 +11,12 @@ import java.util.List;
 import org.apache.taglibs.standard.lang.jstl.test.beans.PublicBean1;
 import org.eclipse.jdt.internal.compiler.batch.Main;
 
+
 public class MemberDAO {
 	private static Connection conn = null;
     private static PreparedStatement memberListPstmt = null;
     private static PreparedStatement memberViewPstmt = null;
+    private static PreparedStatement memberDeletePstmt = null;
 
 	static {
 
@@ -30,6 +32,7 @@ public class MemberDAO {
 
             memberListPstmt = conn.prepareStatement("select * from TB_MEMBER");
             memberViewPstmt = conn.prepareStatement("select * from TB_MEMBER where memberID=?");
+            memberDeletePstmt = conn.prepareStatement("delete from TB_MEMBER where memberID=?");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -63,7 +66,6 @@ public class MemberDAO {
     }
 	
 	public MemberVO view(String memberID) {
-
         MemberVO memberVO = null;
         try {
             memberViewPstmt.setString(1, memberID);
@@ -71,8 +73,8 @@ public class MemberDAO {
             ResultSet rs = memberViewPstmt.executeQuery();
             if (rs.next()) {
             	memberVO = new MemberVO(
-                		  rs.getString("memberName")
-                        , rs.getString("memberID")
+                		  rs.getString("memberID")
+                        , rs.getString("memberName")
                         , rs.getString("memberADDR")
                         , rs.getString("memberPhone")
                         , rs.getString("memberGen")
@@ -84,6 +86,19 @@ public class MemberDAO {
             e.printStackTrace();
         }
         return memberVO;
+    }
+	
+	public int delete(String memberID) {
+        int updated = 0;
+
+        try {
+            memberDeletePstmt.setString(1, memberID);
+            updated = memberDeletePstmt.executeUpdate();
+            conn.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return updated;
     }
 
 }

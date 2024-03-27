@@ -1,4 +1,4 @@
-package miniProj1;
+package miniproj1;
 
 import java.util.List;
 
@@ -23,5 +23,7 @@ public class Test {
 		
 		System.out.println(m);
 		
+		int updatedreal =memberDAO.delete("ddsss");
+		System.out.println(updatedreal);
 	}
 }

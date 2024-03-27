@@ -23,21 +23,23 @@
 	<div id="container">
 	    <img src="img/스불행.jpeg" width=360px>
 	    <div id="member-view">
+	    <h1>회원 정보</h1>
 	      <label>아이디 : ${member.memberID}</label> <br>
 	      <label>이름 : ${member.memberName}</label><br>
 	      <label>주소: ${member.memberADDR}</label><br>
 	      <label>전화번호: ${member.memberPhone}</label><br>
 	      <label>성별: ${member.memberGen}</label><br><br>
+	      
 	
 	<script>
-	function jsDelete() {
-		if (confirm("정말로 삭제하시겠습니까?")) {
+	function jsDelete(memberID) {
+		if (confirm("정말로 탈퇴하시겠습니까?")) {
 			action.value= "memberDelete";
 			viewForm.submit();
 		}
 	}
 	
-	function jsUpdateForm() {
+	function jsUpdateForm(memberID) {
 			action.value= "memberUpdateForm";
 			viewForm.submit();
 	}
@@ -50,8 +52,8 @@
 		<div>
 		<form id="viewForm" method="post" action="member">
 			<input type="hidden" id="action" name="action" value="">
-			<input type="hidden" name="userid" value="${member.memberID}">
-			<input type="button" value="삭제" onclick="jsDelete()">
+			<input type="hidden" name="memberID" value="${member.memberID}">
+			<input type="button" value="탈퇴" onclick="jsDelete()">
 			<input type="button" value="수정" onclick="jsUpdateForm()">
 			<input type="button" value="목록" onclick="jsList()">
 		</form>  

@@ -20,9 +20,9 @@
 <nav>
     <ul>
         <li><a href="corpInfo.html">회사 소개</a></li>
-        <li><a href="signUpForm.jsp">회원가입</a></li>
-        <li><a href="loginForm.jsp">로그인</a></li>
-        <li><a href="boardlistDefault.jsp">게시판</a></li>
+        <li><a href="member?action=signUpForm">회원가입</a></li>
+        <li><a href="member?action=loginForm">로그인</a></li>
+        <li><a href="board?action=boardlistDefault">게시판</a></li>
     </ul>
 </nav>
 
@@ -46,7 +46,7 @@
                 <label for="autologin">자동로그인</label>
             </div>
             <input type="submit" value="로그인" style="margin-left: 110px;">
-			<a href="member.do?action=list" style="margin-left: 30px;">취소</a>
+			<a href="mainDefault.html" style="margin-left: 30px;">취소</a>
         </form>
     </div>
     <img src="img/도파민중독자.jpg">

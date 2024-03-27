@@ -1,4 +1,4 @@
-package miniProj1;
+package miniproj1;
 
 
 import java.io.IOException;
@@ -49,12 +49,20 @@ public class MemberServlet extends HttpServlet {
 		switch(action) {
 		case "memberList" -> memberList(request, response);
 		case "memberView" -> memberView(request, response);
+		case "memberDelete" -> memberDelete(request, response);
 		}
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/member/" + action + ".jsp");
 	    rd.forward(request, response);
 	}
 
+	private void memberList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("목록");
+		
+		List<MemberVO> list = memberDAO.list();
+		request.setAttribute("list", list);
+	}
+	
 	private void memberView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("상세보기");
         String memberID = request.getParameter("memberID");
@@ -63,11 +71,12 @@ public class MemberServlet extends HttpServlet {
         request.setAttribute("member", memberVO);
     }
 
-	private void memberList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("목록");
-		
-		List<MemberVO> list = memberDAO.list();
-		request.setAttribute("list", list);
+	private void memberDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("회원탈퇴");
+		String memberID = request.getParameter("memberID");
+		System.out.println("memberID: " + memberID);
+        
+        int updated = memberDAO.delete(memberID);
+        request.setAttribute("updated", updated);
 	}
-
 }
