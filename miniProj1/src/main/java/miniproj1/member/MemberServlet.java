@@ -1,4 +1,4 @@
-package miniproj1;
+package miniproj1.member;
 
 
 import java.io.IOException;
@@ -71,10 +71,8 @@ public class MemberServlet extends HttpServlet {
 		} else if (contentType.startsWith("application/json")) {
 			memberVO = objectMapper.readValue(request.getInputStream(), MemberVO.class);
 		}
-		System.out.println("memberVO " + memberVO + "여깅여기");
 		
 		String action = memberVO.getAction();
-		System.out.println("dfgdfg  " + action);
 		Object result = switch(action) {
 		case "memberList" -> memberController.memberList(request, memberVO);
 		case "memberView" -> memberController.memberView(request, memberVO);

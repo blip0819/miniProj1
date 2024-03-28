@@ -43,22 +43,22 @@
 	<nav>
         <ul>
             <li><a href="corpInfo.html">회사 소개</a></li>
-            <li><a href="signUpForm.jsp">회원가입</a></li>
-            <li><a href="loginForm.jsp">로그인</a></li>
-            <li><a href="boardlistDefault.jsp">게시판</a></li>
+            <li><a href="member?action=memberList">회원가입</a></li>
+            <li><a href="member?action=logout">로그인</a></li>
+            <li><a href="board?action=boardList">게시판</a></li>
         </ul>
     </nav>
     	
     <h1>게시판</h1>
-    <form id="searchForm" action="board.do" method="post" style="margin-left: 200px;">
-    	<input type="hidden" id="action" name="action" value="list">
+    <form id="searchForm" action="board" method="get" style="margin-left: 200px;">
     	<label style="font-size: 16pt;">제목</label>
     	<input type="text" id="searchKey" name="searchKey" value="${param.searchKey}">
+    	<input type="hidden" name="action" value="boardList">
     	<input type="submit" value="검색">
     </form>
     
-    <form id="listForm" action="board.do" method="post">
-    	<input type="hidden" id="action" name="action" value="view">
+    <form id="listForm" action="board" method="post">
+    	<input type="hidden" id="action" name="action" value="boardView">
     	<input type="hidden" id="bno" name="bno" >
     </form>
    
@@ -69,6 +69,23 @@
             <th>작성자</th>
             <th>작성일</th>
         </tr>
+        <c:forEach var="board" items="${list}">
+        <tr>
+            <td onclick="jsView('${board.bno}')"style="cursor:pointer;">
+            <a href="board?action=boardView&bno=${board.bno}">${board.bno}</a>
+            </td>
+            <td>${board.btitle}</td>
+            <td>${board.bwriter}</td>
+            <td>${board.bdate}</td>
+        </tr>
+        </c:forEach>
     </table>
+    
+    <script>
+	function jsView(bno) {
+		bno.value = bno;
+		boardView.submit();
+	}
+	</script>  
 </body>
 </html>

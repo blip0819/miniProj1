@@ -44,7 +44,7 @@
             <li><a href="corpInfo.html">회사 소개</a></li>
             <li><a href="member?action=memberList">회원목록</a></li>
             <li><a href="member?action=logout">로그아웃</a></li>
-            <li><a href="board?action=boardlistDefault">게시판</a></li>
+            <li><a href="board?action=boardList">게시판</a></li>
         </ul>
     </nav>
     	
@@ -56,7 +56,7 @@
     	<input type="submit" value="검색">
     </form>
     
-    <form id="listForm" action="member.do" method="post">
+    <form id="listForm" action="member" method="post">
     	<input type="hidden" id="action" name="action" value="memberView">
     	<input type="hidden" id="memberID" name="memberID" >
     </form>

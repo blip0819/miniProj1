@@ -5,6 +5,7 @@ import java.util.List;
 import org.eclipse.jdt.internal.compiler.batch.Main;
 
 import lombok.experimental.var;
+import miniproj1.member.MemberDAO;
 
 public class Test {
 

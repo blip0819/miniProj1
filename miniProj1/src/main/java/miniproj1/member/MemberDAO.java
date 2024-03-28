@@ -1,4 +1,4 @@
-package miniproj1;
+package miniproj1.member;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

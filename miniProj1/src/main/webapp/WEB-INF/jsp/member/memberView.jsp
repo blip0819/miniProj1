@@ -16,7 +16,7 @@
 	        <li><a href="corpInfo.html">회사 소개</a></li>
             <li><a href="member?action=memberList">회원목록</a></li>
             <li><a href="member?action=logout">로그아웃</a></li>
-            <li><a href="board?action=boardlistDefault">게시판</a></li>
+            <li><a href="board?action=boardList">게시판</a></li>
 	    </ul>
 	</nav>
 	
@@ -43,7 +43,7 @@
 					,memberID : memberID.value
 		    	} 
 			    	
-				fetch("member.do", {
+				fetch("member", {
 					method:"POST",
 					body:JSON.stringify(param),
 					headers : {"Content-type" : "application/json; charset=utf-8"}
@@ -52,7 +52,7 @@
 					if(json.status == 0) {
 						//성공
 						alert("탈퇴가 완료되었습니다");
-						location = "member.do?action=memberList";
+						location = "member?action=memberList";
 					} else {
 						alert(json.statusMessage);
 					}

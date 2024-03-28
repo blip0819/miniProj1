@@ -22,7 +22,7 @@
         <li><a href="corpInfo.html">회사 소개</a></li>
         <li><a href="member?action=signUpForm">회원가입</a></li>
         <li><a href="member?action=loginForm">로그인</a></li>
-        <li><a href="board?action=boardlistDefault">게시판</a></li>
+        <li><a href="board?action=boardList">게시판</a></li>
     </ul>
 </nav>
 
@@ -30,7 +30,7 @@
     <img src="img/누워있기.jpeg">
     <div id="login-form">
         <h1>로그인 화면 </h1>
-        <form id="rForm" action="member.do" method="post">
+        <form id="rForm" action="member" method="post">
             <input type="hidden" name="action" value="login">
             <div class="form-group">
                 <label for="memberid">아이디 : </label>

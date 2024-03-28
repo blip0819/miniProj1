@@ -16,7 +16,7 @@
         <li><a href="corpInfo.html">회사 소개</a></li>
         <li><a href="member?action=memberList">회원목록</a></li>
         <li><a href="member?action=logout">로그아웃</a></li>
-        <li><a href="board?action=boardlistDefault">게시판</a></li>
+        <li><a href="board?action=boardList">게시판</a></li>
     </ul>
 </nav>
 
