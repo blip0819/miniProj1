@@ -86,16 +86,18 @@ public class BoardServlet extends HttpServlet {
 			//json 문자열을 리턴 
 			response.setContentType("application/json;charset=UTF-8");
 			response.getWriter().append(objectMapper.writeValueAsString(map));
+			System.out.println("hihi 문자열 : " + result);
 			} 
 		else if (result instanceof String url) {
 				if (url.startsWith("redirect:")) {
 					//리다이렉트 
 					response.sendRedirect(url.substring("redirect:".length()));
-					System.out.println("hihi 리디렉션 : " + result);
+//					System.out.println("hihi 리디렉션 : " + result);
 				} else {
 					//포워딩 
 					RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/board/"+url+".jsp");
 					rd.forward(request, response);
+					System.out.println("hihi 포워딩 : " + result);
 			}
 		}
 	}

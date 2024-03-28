@@ -30,7 +30,8 @@ public class BoardController {
 
 	public Object boardView(HttpServletRequest request, BoardVO board) {
 		System.out.println("상세보기");
-		return null;
+		request.setAttribute("board", boardService.boardView(board));
+		return "boardView";
 	}
 
 	public Object boardDelete(HttpServletRequest request, BoardVO board) {
