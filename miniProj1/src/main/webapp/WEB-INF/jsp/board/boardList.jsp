@@ -81,6 +81,11 @@
         </c:forEach>
     </table>
     
+    <form id="write" action="board" method="get" style="margin-left: 180px;">
+    	<input type="hidden" name="action" value="boardInsert">
+    	<input type="submit" value="게시글 작성">
+    </form>
+    
     <script>
 	function jsView(bno) {
 		bno.value = bno;
