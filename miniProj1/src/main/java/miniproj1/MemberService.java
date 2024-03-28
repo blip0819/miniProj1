@@ -29,11 +29,21 @@ public class MemberService {
 			return memberDAO.memberDelete(member);
 		}
 
-		public Object updateForm(MemberVO member) throws ServletException, IOException {
+		public MemberVO updateForm(MemberVO member) throws ServletException, IOException {
 			// 사용자 생성
 			// 1,2,3
 			// 사용자 아이디 - 취미 아이디
 			return memberDAO.memberView(member);
 		}
+		
+		public int memberUpdate(MemberVO member) throws ServletException, IOException {
+			return memberDAO.memberUpdate(member);
+		}
+		
+		public int memberInsert(MemberVO member) throws ServletException, IOException {
+			System.out.println("mem : " + member);
+			return memberDAO.memberInsert(member);
+		}
+		
 		
 }

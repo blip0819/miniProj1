@@ -20,8 +20,10 @@ public class MemberDAO {
     private static PreparedStatement memberViewPstmt = null;
     private static PreparedStatement memberDeletePstmt = null;
     private static PreparedStatement memberUpdatePstmt = null;
+    private static PreparedStatement memberInsertPstmt = null;
     
-    private static PreparedStatement memberValidPWPstmt = null;
+    private static PreparedStatement memberPWValidPstmt = null;
+    private static PreparedStatement memberIDValidPstmt = null;
 
 	static {
 
@@ -40,8 +42,10 @@ public class MemberDAO {
             memberViewPstmt = conn.prepareStatement("select * from TB_MEMBER where memberID=?");
             memberDeletePstmt = conn.prepareStatement("delete from TB_MEMBER where memberID=?");
             memberUpdatePstmt = conn.prepareStatement("update TB_MEMBER set memberName=?, memberPW=?, memberADDR=?, memberPhone=?, memberGen=? where memberID=?");
+            memberInsertPstmt = conn.prepareStatement("insert into TB_MEMBER (memberID, memberName, memberPW, memberADDR, memberPhone, memberGen) values (?, ?, ?, ?, ?, ?)");
             
-            memberValidPWPstmt = conn.prepareStatement("select memberPW from TB_MEMBER where memberPW=?");
+            memberPWValidPstmt = conn.prepareStatement("select memberPW from TB_MEMBER where memberPW=?");
+            memberIDValidPstmt = conn.prepareStatement("select userid from users where userid=?");
             
             
         } catch (ClassNotFoundException e) {
@@ -88,7 +92,7 @@ public class MemberDAO {
 	        System.out.println("DAO 쿼리문 정상 작동");
 	        ResultSet rs = memberViewPstmt.executeQuery();
 	        if (rs.next()) {
-	            memberVO = new MemberVO(
+	        	memberVO = new MemberVO(
 	                    rs.getString("memberID"),
 	                    rs.getString("memberName"),
 	                    rs.getString("memberADDR"),
@@ -102,6 +106,8 @@ public class MemberDAO {
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
+	    
+	    System.out.println(memberVO);
 	    return memberVO;
 	}
 
@@ -150,14 +156,34 @@ public class MemberDAO {
 	    return updated;
 	}
 	
+	public int memberInsert(MemberVO member) {
+	    int updated = 0;
+
+	    try {
+	        memberInsertPstmt.setString(1, member.getMemberID());
+	        memberInsertPstmt.setString(2, member.getMemberName());
+	        memberInsertPstmt.setString(3, member.getMemberPW());
+	        memberInsertPstmt.setString(4, member.getMemberADDR());
+	        memberInsertPstmt.setString(5, member.getMemberPhone());
+	        memberInsertPstmt.setString(6, member.getMemberGen());
+	        
+	        updated = memberInsertPstmt.executeUpdate();
+	        
+	        conn.commit();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return updated;
+	}
 	
 	
 	
-	public boolean  validationPassword(String userpassword){
+	
+	public boolean validationPassword(String memberPW){
         boolean result = false;
         try {
-        	memberValidPWPstmt.setString(1, userpassword);
-            ResultSet rs = memberValidPWPstmt.executeQuery();
+        	memberPWValidPstmt.setString(1, memberPW);
+            ResultSet rs = memberPWValidPstmt.executeQuery();
             if (rs.next()) {
                 result = true;
             }
@@ -165,6 +191,22 @@ public class MemberDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return result;
+    }
+	
+	
+	public boolean validationID(String memberID){
+        boolean result = false;
+        try {
+            memberIDValidPstmt.setString(1, memberID);
+            ResultSet rs = memberIDValidPstmt.executeQuery();
+            if (rs.next()) {
+                result = true;
+            }
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+    }
         return result;
     }
 	

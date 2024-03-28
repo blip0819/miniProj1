@@ -74,13 +74,22 @@ public class MemberServlet extends HttpServlet {
 		System.out.println("memberVO " + memberVO + "여깅여기");
 		
 		String action = memberVO.getAction();
+		System.out.println("dfgdfg  " + action);
 		Object result = switch(action) {
 		case "memberList" -> memberController.memberList(request, memberVO);
 		case "memberView" -> memberController.memberView(request, memberVO);
 		case "memberDelete" -> memberController.memberDelete(request, memberVO);
 		case "memberUpdateForm" -> memberController.memberUpdateForm(request, memberVO);
+		case "memberUpdate" -> memberController.memberUpdate(request, memberVO);
+		case "signUpForm" -> memberController.signUpForm(request);
+		case "memberInsert" -> memberController.memberInsert(request, memberVO);
+		case "existedMemberID" -> memberController.existedMemberID(request, memberVO);
 		default -> "";
 		};
+		
+		System.out.println(result);
+		
+		System.out.println("1 : " + result.getClass().getName());
 		
 			if (result instanceof Map map) {
 				//json 문자열을 리턴 
@@ -91,6 +100,7 @@ public class MemberServlet extends HttpServlet {
 					if (url.startsWith("redirect:")) {
 						//리다이렉트 
 						response.sendRedirect(url.substring("redirect:".length()));
+						System.out.println("hihi 리디렉션 : " + result);
 					} else {
 						//포워딩 
 						RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/member/"+url+".jsp");

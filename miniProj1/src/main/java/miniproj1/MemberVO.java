@@ -44,5 +44,4 @@ public class MemberVO {
 	public boolean isEmptySearchKey() {
 		return searchKey==null || searchKey.length() ==0;
 	}
-
 }

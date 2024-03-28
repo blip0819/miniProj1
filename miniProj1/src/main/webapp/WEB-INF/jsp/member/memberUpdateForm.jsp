@@ -59,9 +59,9 @@
 
             <label>성별:</label>
 			<div class="gender-container">
-			    <input type="radio" id="memberGen" name="memberGen" value="남" ${member.memberGen == '남' ? 'checked' : ''}>
+			    <input type="radio" id="male" name="memberGen" value="남" ${member.memberGen == '남' ? 'checked' : ''}>
 			    <label for="남" class="radio-label">남</label>
-			    <input type="radio" id="memberGen" name="memberGen" value="여" ${member.memberGen == '여' ? 'checked' : ''}>
+			    <input type="radio" id="female" name="memberGen" value="여" ${member.memberGen == '여' ? 'checked' : ''}>
 			    <label for="여" class="radio-label">여</label>
 			</div>
 
@@ -88,57 +88,68 @@
        			<a href="member?action=memberView&memberID=${member.memberID}">취소</a>
        	</form>
     
-		<script type="text/javascript">
-		const rForm = document.getElementById("rForm");
-		const memberID = document.getElementById("memberID");
-		const memberPW = document.getElementById("memberPW");
-		const memberPW2 = document.getElementById("memberPW2");
-		const memberName = document.getElementById("memberName");
-		const memberADDR = document.getElementById("memberADDR");
-		const memberPhone = document.getElementById("memberPhone");
-		const memberGen = document.getElementById("memberGen");
+		<script>
+		    const rForm = document.getElementById("rForm");
+		    const memberID = document.getElementById("memberID");
+		    const memberPW = document.getElementById("memberPW");
+		    const memberPW2 = document.getElementById("memberPW2");
+		    const memberName = document.getElementById("memberName");
+		    const memberADDR = document.getElementById("memberADDR");
+		    const memberPhone = document.getElementById("memberPhone");
+		    const maleRadio = document.getElementById("male");
+		    const femaleRadio = document.getElementById("female");
 		
-		rForm.addEventListener("submit", e => {
-			//서버에 form data를 전송하지 않는다 
-			e.preventDefault();
-			
-			if (memberPW.value != memberPW2.value) {
-		    	
-				alert("비밀번호가 잘못되었습니다.")
-				memberPW2.value = "";
-				memberPW2.focus();
-				return false;
-			}
-			//fetch를 사용하여 회원 정보 수정을 함
-			//전송자료 구성 
-			const param = {
-				 action : 'memberUpdate'
-				,memberID : memberID.value
-		    	,memberPW : memberPW.value
-		        ,memberName : memberName.value
-		        ,memberADDR : memberADDR.value
-		        ,memberPhone : memberPhone.value
-		        ,memberGen : memberGen.value
-			} 
-			
-			fetch("member", {
-				method:"POST",
-				body:JSON.stringify(param),
-				headers : {"Content-type" : "application/json; charset=utf-8"}
-			}).then(res => res.json()).then(json => {
-				//서버로 부터 받은 결과를 사용해서 처리 루틴 구현  
-				console.log("json ", json );
-				if(json.status == 0) {
-					//성공
-					alert("회원 정보 수정을 성공 하였습니다");
-					location = "member?action=memberView&memberID=" + memberID.value;
-				} else {
-					alert(json.statusMessage);
-				}
-			});
-		});
+		    rForm.addEventListener("submit", e => {
+		        // 서버에 form data를 전송하지 않음
+		        e.preventDefault();
 		
-		</script>    
+		        if (memberPW.value != memberPW2.value) {
+		            alert("비밀번호가 일치하지 않습니다.");
+		            memberPW2.value = "";
+		            memberPW2.focus();
+		            return false;
+		        }
+		
+		        // 성별 선택 값 확인
+		        let selectedGen = "";
+		        if (maleRadio.checked) {
+		            selectedGen = "남";
+		        } else if (femaleRadio.checked) {
+		        	selectedGen = "여";
+		        } else {
+		            alert("성별을 선택해주세요.");
+		            return false;
+		        }
+		
+		        // fetch를 사용하여 회원 정보 수정
+		        const param = {
+		            action: 'memberUpdate',
+		            memberID: memberID.value,
+		            memberPW: memberPW.value,
+		            memberName: memberName.value,
+		            memberADDR: memberADDR.value,
+		            memberPhone: memberPhone.value,
+		            memberGen: selectedGen // 수정된 성별 값
+		        };
+		
+		        fetch("member", {
+		            method: "POST",
+		            body: JSON.stringify(param),
+		            headers: {"Content-type": "application/json; charset=utf-8"}
+		        }).then(res => res.json()).then(json => {
+		            // 서버로부터 받은 결과를 사용해서 처리 루틴 구현
+		            console.log("json ", json);
+		            if (json.status == 0) {
+		                // 성공
+		                alert("회원 정보 수정을 성공하였습니다.");
+		                location = "member?action=memberView&memberID=" + memberID.value;
+		            } else {
+		                alert(json.statusMessage);
+		            }
+		        });
+		    });
+		</script>
+ 
 
 
     </div>
