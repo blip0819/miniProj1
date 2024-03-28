@@ -71,7 +71,7 @@
 	}
 	</script>
 		<div>
-		<form id="viewForm" method="post" action="member">
+		<form id="viewForm" method="get" action="member">
 			<input type="hidden" id="action" name="action" value="">
 			<input type="hidden" name="memberID" value="${member.memberID}">
 			<input type="button" value="탈퇴" onclick="jsDelete()">

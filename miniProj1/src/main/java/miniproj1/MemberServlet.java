@@ -78,10 +78,24 @@ public class MemberServlet extends HttpServlet {
 		case "memberList" -> memberController.memberList(request, memberVO);
 		case "memberView" -> memberController.memberView(request, memberVO);
 		case "memberDelete" -> memberController.memberDelete(request, memberVO);
+		case "memberUpdateForm" -> memberController.memberUpdateForm(request, memberVO);
 		default -> "";
 		};
 		
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/member/"+action+".jsp");
-			rd.forward(request, response);
+			if (result instanceof Map map) {
+				//json 문자열을 리턴 
+				response.setContentType("application/json;charset=UTF-8");
+				response.getWriter().append(objectMapper.writeValueAsString(map));
+				} 
+			else if (result instanceof String url) {
+					if (url.startsWith("redirect:")) {
+						//리다이렉트 
+						response.sendRedirect(url.substring("redirect:".length()));
+					} else {
+						//포워딩 
+						RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/member/"+url+".jsp");
+						rd.forward(request, response);
+				}
+			}
 		}
 }

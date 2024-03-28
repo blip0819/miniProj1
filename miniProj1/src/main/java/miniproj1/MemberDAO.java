@@ -19,6 +19,9 @@ public class MemberDAO {
     private static PreparedStatement memberListPstmt2 = null;
     private static PreparedStatement memberViewPstmt = null;
     private static PreparedStatement memberDeletePstmt = null;
+    private static PreparedStatement memberUpdatePstmt = null;
+    
+    private static PreparedStatement memberValidPWPstmt = null;
 
 	static {
 
@@ -36,6 +39,11 @@ public class MemberDAO {
             memberListPstmt2 = conn.prepareStatement("select * from TB_MEMBER where memberID like ?");
             memberViewPstmt = conn.prepareStatement("select * from TB_MEMBER where memberID=?");
             memberDeletePstmt = conn.prepareStatement("delete from TB_MEMBER where memberID=?");
+            memberUpdatePstmt = conn.prepareStatement("update TB_MEMBER set memberName=?, memberPW=?, memberADDR=?, memberPhone=?, memberGen=? where memberID=?");
+            
+            memberValidPWPstmt = conn.prepareStatement("select memberPW from TB_MEMBER where memberPW=?");
+            
+            
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -63,7 +71,8 @@ public class MemberDAO {
                         , rs.getString("memberName")
                         , rs.getString("memberADDR")
                         , rs.getString("memberPhone")
-                        , rs.getString("memberGen"));
+                        , rs.getString("memberGen")
+                        );
                 list.add(memberVO);
             }
             rs.close();
@@ -74,29 +83,38 @@ public class MemberDAO {
     }
 	
 	public MemberVO memberView(MemberVO memberVO) {
-        MemberVO member = null;
-        try {
-            memberViewPstmt.setString(1, memberVO.getMemberID());
-            System.out.println("DAO 쿼리문 정상 작동");
-            ResultSet rs = memberViewPstmt.executeQuery();
-            if (rs.next()) {
-            	memberVO = new MemberVO(
-                		  rs.getString("memberID")
-                        , rs.getString("memberName")
-                        , rs.getString("memberADDR")
-                        , rs.getString("memberPhone")
-                        , rs.getString("memberGen")
-                		);
-            }
-            rs.close();
+	    try {
+	        memberViewPstmt.setString(1, memberVO.getMemberID());
+	        System.out.println("DAO 쿼리문 정상 작동");
+	        ResultSet rs = memberViewPstmt.executeQuery();
+	        if (rs.next()) {
+	            memberVO = new MemberVO(
+	                    rs.getString("memberID"),
+	                    rs.getString("memberName"),
+	                    rs.getString("memberADDR"),
+	                    rs.getString("memberPhone"),
+	                    rs.getString("memberGen")
+	            );
+//	            // 취미 정보 조회
+//	            memberVO.setMemberHobbies(getMemberHobbies(memberVO.getMemberID()));
+	        }
+	        rs.close();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return memberVO;
+	}
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-        System.out.println("memberView->" + memberVO);
-        return memberVO;
-    }
+//	private List<String> getMemberHobbies(String memberID) throws SQLException {
+//	    List<String> hobbies = new ArrayList<>();
+//	    PreparedStatement selectPstmt = conn.prepareStatement("SELECT memberHOBBY FROM TB_MEMHOBBY WHERE memberID=?");
+//	    selectPstmt.setString(1, memberID);
+//	    ResultSet rs = selectPstmt.executeQuery();
+//	    while (rs.next()) {
+//	        hobbies.add(rs.getString("memberHOBBY"));
+//	    }
+//	    return hobbies;
+//	}
 	
 	public int memberDelete(MemberVO member) {
         int updated = 0;
@@ -111,4 +129,66 @@ public class MemberDAO {
         return updated;
     }
 
+	public int memberUpdate(MemberVO member) {
+	    int updated = 0;
+
+	    try {
+	        memberUpdatePstmt.setString(1, member.getMemberName());
+	        memberUpdatePstmt.setString(2, member.getMemberPW());
+	        memberUpdatePstmt.setString(3, member.getMemberADDR());
+	        memberUpdatePstmt.setString(4, member.getMemberPhone());
+	        memberUpdatePstmt.setString(5, member.getMemberGen());
+	        memberUpdatePstmt.setString(6, member.getMemberID());
+//	        // 취미 정보를 업데이트
+//	        updateMemberHobbies(member.getMemberID(), member.getMemberHobbies());
+	        updated = memberUpdatePstmt.executeUpdate();
+	        
+	        conn.commit();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return updated;
+	}
+	
+	
+	
+	
+	public boolean  validationPassword(String userpassword){
+        boolean result = false;
+        try {
+        	memberValidPWPstmt.setString(1, userpassword);
+            ResultSet rs = memberValidPWPstmt.executeQuery();
+            if (rs.next()) {
+                result = true;
+            }
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+	
+	
+//	private void updateMemberHobbies(String memberID, List<String> hobbies) throws SQLException {
+//	    // 기존의 취미 정보 삭제
+//	    deleteMemberHobbies(memberID);
+//	    // 새로운 취미 정보 입력
+//	    insertMemberHobbies(memberID, hobbies);
+//	}
+//
+//	private void deleteMemberHobbies(String memberID) throws SQLException {
+//	    PreparedStatement deletePstmt = conn.prepareStatement("DELETE FROM TB_MEMHOBBY WHERE memberID=?");
+//	    deletePstmt.setString(1, memberID);
+//	    deletePstmt.executeUpdate();
+//	}
+//
+//	private void insertMemberHobbies(String memberID, List<String> hobbies) throws SQLException {
+//	    PreparedStatement insertPstmt = conn.prepareStatement("INSERT INTO TB_MEMHOBBY (memberID, memberHOBBY) VALUES (?, ?)");
+//	    for (String hobby : hobbies) {
+//	        insertPstmt.setString(1, memberID);
+//	        insertPstmt.setString(2, hobby);
+//	        insertPstmt.executeUpdate();
+//	    }
+//
+//	}
 }

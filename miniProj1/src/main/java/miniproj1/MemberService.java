@@ -28,6 +28,12 @@ public class MemberService {
 		public int memberDelete(MemberVO member) throws ServletException, IOException {
 			return memberDAO.memberDelete(member);
 		}
-		
+
+		public Object updateForm(MemberVO member) throws ServletException, IOException {
+			// 사용자 생성
+			// 1,2,3
+			// 사용자 아이디 - 취미 아이디
+			return memberDAO.memberView(member);
+		}
 		
 }

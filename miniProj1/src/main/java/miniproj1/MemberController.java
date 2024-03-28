@@ -38,16 +38,13 @@ public class MemberController {
 		System.out.println("목록");
 		
 		List<MemberVO> list = memberService.memberList(member);
-		System.out.println("컨트롤러까지는 성공");
 		request.setAttribute("list", list);
 		return "memberList";
 	}
 	
     public Object memberView(HttpServletRequest request, MemberVO member) throws ServletException, IOException {
         System.out.println("상세보기");
-
         request.setAttribute("member", memberService.memberView(member));
-        System.out.println("컨트롤러 왔다갔다 성공" + request.getAttribute("member"));
         return "memberView";
     }
 
@@ -64,6 +61,13 @@ public class MemberController {
 		}
        return map;
 	}
+    
+    public Object memberUpdateForm(HttpServletRequest request, MemberVO member) throws ServletException, IOException {
+    	System.out.println("회원정보수정");
+    	request.setAttribute("member", memberService.updateForm(member));
+		return "memberUpdateForm";
+	}
+
 
 }
 

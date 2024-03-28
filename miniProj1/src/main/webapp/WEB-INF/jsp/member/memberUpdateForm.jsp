@@ -22,70 +22,125 @@
 
 <div id="container">
     <img src="img/건강챙겨.png" width=360px>
-    <div id="update-form">
-        <h1>마이페이지</h1>
-        <form id="rForm" action="member.do" method="post">
-            <input type="hidden" name="action" value="insert">
-            
+        
+            <div id = update-form>
+            <h1>마이페이지</h1>
+   			<form id="rForm" action="member" method="post">
+            <input type="hidden" name="action" value="memberUpdate">
             <div class="form-group">
-                <label for="memberid">아이디 :</label>
-                    <input type="text" id="memberid" name="memberid" required="required" readonly>
+        	<label>아이디 : </label>
+        	<input type="text" id="memberID" name="memberID" value="${member.memberID}" readonly="readonly"> <br/>
             </div>
             
             <div class="form-group">
-                <label for="memberPW">비밀번호 :</label>
-                <input type="PW" id="memberPW" name="memberPW" required="required">
+             <label>비밀번호 : </label>
+             <input type="password" id="memberPW" name="memberPW" value="${member.memberPW}" required="required"> <br/>
             </div>
             
             <div class="form-group">
-                <label for="memberPW2">비밀번호확인 :</label>
-                <input type="PW" id="memberPW2" name="memberPW2" required="required">
+                <label>비밀번호확인 : </label>
+                <input type="password" id="memberPW2" name="memberPW2" required="required">
             </div>
             
             <div class="form-group">
-                <label for="membername">이름 :</label>
-                <input type="text" id="membername" name="membername" required="required">
+                <label>이름 : </label>
+                <input type="text" id="memberName" name="memberName" value="${member.memberName}">
             </div>
             
             <div class="form-group">
-                <label for="memberADDR">주소 :</label>
-                <input type="text" id="memberADDR" name="memberADDR" required="required">
+                <label>주소 : </label>
+                <input type="text" id="memberADDR" name="memberADDR" value="${member.memberADDR}">
             </div>
             
             <div class="form-group">
-                <label for="memberphone">전화번호 :</label>
-                <input type="text" id="memberphone" name="memberphone" required="required">
+                <label>전화번호 : </label>
+                <input type="text" id="memberPhone" name="memberPhone" value="${member.memberPhone}">
             </div>
 
             <label>성별:</label>
-            <div class="gender-container">
-                <input type="radio" id="male" name="gender" value="male">
-                <label for="male" class="radio-label">남</label>
-                <input type="radio" id="female" name="gender" value="female">
-                <label for="female" class="radio-label">여</label>
-            </div>
+			<div class="gender-container">
+			    <input type="radio" id="memberGen" name="memberGen" value="남" ${member.memberGen == '남' ? 'checked' : ''}>
+			    <label for="남" class="radio-label">남</label>
+			    <input type="radio" id="memberGen" name="memberGen" value="여" ${member.memberGen == '여' ? 'checked' : ''}>
+			    <label for="여" class="radio-label">여</label>
+			</div>
+
             <br>
-            <label>취미:</label><br>
-            <div>
-                <input type="checkbox" id="hobby1" name="hobby" value="Exercising">
-                <label for="hobby">운동</label>
+           <!-- <label>취미:</label><br>
+            <div class="hobby-container">
+                <input type="checkbox" id="exercising" name="hobby" value="exercising">
+                <label for="hobby" class="checkbox-label">운동</label>
             </div>
             <div>
-                <input type="checkbox" id="hobby2" name="hobby" value="Cooking">
-                <label for="hobby">요리</label>
+                <input type="checkbox" id="cooking" name="hobby" value="cooking">
+                <label for="hobby" class="checkbox-label">요리</label>
             </div>
-		<div>
-		    <input type="checkbox" id="hobby3" name="hobby" value="Movies">
-		    <label for="hobby">영화 감상</label>
-		</div>
-		<div>
-		    <input type="checkbox" id="hobby4" name="hobby" value="Fishing">
-		    <label for="hobby">낚시</label>
-		</div>
-		<br>
-        <input type="submit" value="수정" >
-        <a href="member.do?action=memberView">취소</a>
-        </form>
+			<div>
+		    <input type="checkbox" id="movies" name="hobby" value="movies">
+		    <label for="hobby" class="checkbox-label">영화 감상</label>
+			</div>
+			<div>
+		    <input type="checkbox" id="fishing" name="hobby" value="fishing">
+		    <label for="hobby" class="checkbox-label">낚시</label>
+			</div> --> 
+		<br> 
+				<input type="submit" value="수정">
+       			<a href="member?action=memberView&memberID=${member.memberID}">취소</a>
+       	</form>
+    
+		<script type="text/javascript">
+		const rForm = document.getElementById("rForm");
+		const memberID = document.getElementById("memberID");
+		const memberPW = document.getElementById("memberPW");
+		const memberPW2 = document.getElementById("memberPW2");
+		const memberName = document.getElementById("memberName");
+		const memberADDR = document.getElementById("memberADDR");
+		const memberPhone = document.getElementById("memberPhone");
+		const memberGen = document.getElementById("memberGen");
+		
+		rForm.addEventListener("submit", e => {
+			//서버에 form data를 전송하지 않는다 
+			e.preventDefault();
+			
+			if (memberPW.value != memberPW2.value) {
+		    	
+				alert("비밀번호가 잘못되었습니다.")
+				memberPW2.value = "";
+				memberPW2.focus();
+				return false;
+			}
+			//fetch를 사용하여 회원 정보 수정을 함
+			//전송자료 구성 
+			const param = {
+				 action : 'memberUpdate'
+				,memberID : memberID.value
+		    	,memberPW : memberPW.value
+		        ,memberName : memberName.value
+		        ,memberADDR : memberADDR.value
+		        ,memberPhone : memberPhone.value
+		        ,memberGen : memberGen.value
+			} 
+			
+			fetch("member", {
+				method:"POST",
+				body:JSON.stringify(param),
+				headers : {"Content-type" : "application/json; charset=utf-8"}
+			}).then(res => res.json()).then(json => {
+				//서버로 부터 받은 결과를 사용해서 처리 루틴 구현  
+				console.log("json ", json );
+				if(json.status == 0) {
+					//성공
+					alert("회원 정보 수정을 성공 하였습니다");
+					location = "member?action=memberView&memberID=" + memberID.value;
+				} else {
+					alert(json.statusMessage);
+				}
+			});
+		});
+		
+		</script>    
+
+
     </div>
     <img src="img/아프지마.jpeg" width=360px>
     </div>
