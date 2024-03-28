@@ -13,7 +13,7 @@
     <style>
         table {
             width: 80%;
-            border-collapse: collapse 2px;
+            border-collapse: collapse;
             margin: 20px auto;
         }
         th, td {

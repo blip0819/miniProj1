@@ -11,75 +11,54 @@
     <title>게시글 자세히보기</title>
 </head>
 <body>
-	<nav>
-	    <ul>
-	        <li><a href="corpInfo.html">회사 소개</a></li>
+    <nav>
+        <ul>
+            <li><a href="corpInfo.html">회사 소개</a></li>
             <li><a href="member?action=memberList">회원목록</a></li>
             <li><a href="member?action=logout">로그아웃</a></li>
             <li><a href="board?action=boardList">게시판</a></li>
-	    </ul>
-	</nav>
-	
-	<div id="container">
-	    <img src="img/스불행.jpeg" width=360px>
-	    <div id="member-view">
-	    <h1>게시글 자세히보기</h1>
-	      <label>제목 : ${board.btitle}</label> <br>
-	      <label>내용 : ${board.bcontent}</label><br>
-	      <label>작성자: ${board.bwriter}</label><br>
-	      <label>작성일: ${board.bdate}</label><br>
-	      
-	
-	<script>
-	function jsDelete(bno) {
-		if (confirm("정말로 삭제하시겠습니까?")) {
-			action.value= "boardDelete";
-			viewForm.submit();
-			
-			 const memberID = document.getElementById("boardID"); 
-		    	const param = {
-					 action : 'boardDelete'
-					,bno : bno.value
-		    	} 
-			    	
-				fetch("board", {
-					method:"POST",
-					body:JSON.stringify(param),
-					headers : {"Content-type" : "application/json; charset=utf-8"}
-				}).then(res => res.json()).then(json => {
-					console.log("json ", json );
-					if(json.status == 0) {
-						//성공
-						alert("삭제가 완료되었습니다");
-						location = "board?action=boardList";
-					} else {
-						alert(json.statusMessage);
-					}
-				});
-		}
-	}
-	
-	function jsUpdateForm(bno) {
-			action.value= "boardUpdateForm";
-			viewForm.submit();
-	}
-	
-	function jsList(){
-			action.value= "boardList";
-			viewForm.submit();
-	}
-	</script>
-		<div>
-		<form id="viewForm" method="get" action="board">
-			<input type="hidden" id="action" name="action" value="">
-			<input type="hidden" name="bno" value="${board.bno}">
-			<input type="button" value="탈퇴" onclick="jsDelete()">
-			<input type="button" value="수정" onclick="jsUpdateForm()">
-			<input type="button" value="목록" onclick="jsList()">
-		</form>  
-		</div>
+        </ul>
+    </nav>
+    
+    <div id="container">
+        <img src="img/스불행.jpeg" width="360px">
+        <div id="member-view">
+            <h1>게시글 자세히보기</h1>
+            <label>제목 : ${board.btitle}</label> <br>
+            <label>내용 : ${board.bcontent}</label><br>
+            <label>작성자: ${board.bwriter}</label><br>
+            <label>작성일: ${board.bdate}</label><br>
+            
+            <script>
+            function jsDelete() {
+                if (confirm("정말로 삭제하시겠습니까?")) {
+                    document.getElementById("action").value = "boardDelete";
+                    document.getElementById("viewForm").submit();
+                }
+            }
+            
+            function jsUpdateForm() {
+                document.getElementById("action").value= "boardUpdateForm";
+                document.getElementById("viewForm").submit();
+            }
+            
+            function jsList(){
+                document.getElementById("action").value= "boardList";
+                document.getElementById("viewForm").submit();
+            }
+            </script>
+            
+            <form id="viewForm" method="post" action="board">
+                <input type="hidden" id="action" name="action" value="">
+                <input type="hidden" name="bno" value="${board.bno}">
+                <input type="button" value="삭제" onclick="jsDelete()">
+                <input type="button" value="수정" onclick="jsUpdateForm()">
+                <input type="button" value="목록" onclick="jsList()">
+            </form>  
+        </div>
 
-	</div>
-		    <img src="img/사랑평화행복.jpeg" width=360px>
+        <img src="img/사랑평화행복.jpeg" width="360px">
+        
+    </div>
 </body>
 </html>
