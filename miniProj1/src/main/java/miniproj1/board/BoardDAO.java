@@ -9,8 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import miniproj1.member.MemberVO;
-
 public class BoardDAO {
 	private static Connection conn = null;
     private static PreparedStatement boardListPstmt = null;
@@ -60,13 +58,12 @@ public class BoardDAO {
 	            	System.out.println("DAO 전체 목록 정상 작동");
 	            	rs = boardListPstmt.executeQuery();
 	            }
-	            
 	            while (rs.next()) {
 	                BoardVO boardVO = new BoardVO(
-	                		  rs.getInt("bno")
+	                		  rs.getString("bno")
 	                        , rs.getString("btitle")
-	                        , rs.getDate("bdate")
 	                        , rs.getString("bwriter")
+	                        , rs.getString("bdate")
 	                        );
 	                list.add(boardVO);
 	            }
@@ -79,15 +76,15 @@ public class BoardDAO {
 		
 		public BoardVO boardView(BoardVO boardVO) {
 			try {
-		        boardViewPstmt.setInt(1, boardVO.getBno());
+		        boardViewPstmt.setString(1, boardVO.getBno());
 		        ResultSet rs = boardViewPstmt.executeQuery();
 		        if (rs.next()) {
 		        	boardVO = new BoardVO(
-		        			rs.getInt("bno"),
+		        			rs.getString("bno"),
 		                    rs.getString("btitle"),
 		                    rs.getString("bcontent"),
 		                    rs.getString("bwriter"),
-		                    rs.getDate("bdate")
+		                    rs.getString("bdate")
 		            );
 		        }
 		        rs.close();
@@ -102,7 +99,7 @@ public class BoardDAO {
 		public int boardDelete(BoardVO board) {
 			int updated = 0;
 			try {
-				boardDeletePstmt.setInt(1, board.getBno());
+				boardDeletePstmt.setString(1, board.getBno());
 	            updated = boardDeletePstmt.executeUpdate();
 	            conn.commit();
 	        } catch (Exception e) {
@@ -112,16 +109,18 @@ public class BoardDAO {
 		}
 		
 		public int boardUpdate(BoardVO board) {
+			System.out.println("업데이트 DAO 진입 성공 : " + board);
 			int updated = 0;
 			try {
 				boardUpdatePstmt.setString(1, board.getBtitle());
 				boardUpdatePstmt.setString(2, board.getBcontent());
-				boardUpdatePstmt.setInt(3, board.getBno());
-	            updated = boardDeletePstmt.executeUpdate();
+				boardUpdatePstmt.setString(3, board.getBno());
+	            updated = boardUpdatePstmt.executeUpdate();
 	            conn.commit();
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
+			System.out.println(board);
 			return updated;
 		}
 		

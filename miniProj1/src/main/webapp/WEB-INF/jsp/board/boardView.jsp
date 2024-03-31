@@ -24,11 +24,13 @@
         <img src="img/스불행.jpeg" width="360px">
         <div id="member-view">
             <h1>게시글 자세히보기</h1>
+            <label>게시글 번호 : ${board.bno}</label> <br>
             <label>제목 : ${board.btitle}</label> <br>
             <label>내용 : ${board.bcontent}</label><br>
             <label>작성자: ${board.bwriter}</label><br>
             <label>작성일: ${board.bdate}</label><br>
             
+            <script type="text/javascript" src="<c:url value='/js/common.js'/>"></script>
             <script>
             function jsDelete() {
                 if (confirm("정말로 삭제하시겠습니까?")) {
@@ -38,8 +40,11 @@
             }
             
             function jsUpdateForm() {
-                document.getElementById("action").value= "boardUpdateForm";
-                document.getElementById("viewForm").submit();
+            	if (confirm("정말로 수정하시겠습니까?")) {
+            		action.value = "boardUpdateForm";
+            	
+            		viewForm.submit();
+            	}	
             }
             
             function jsList(){

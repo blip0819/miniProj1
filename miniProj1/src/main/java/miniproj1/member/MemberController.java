@@ -69,7 +69,7 @@ public class MemberController {
 	}
     
     public Object memberUpdate(HttpServletRequest request, MemberVO member) throws ServletException, IOException {
-    	System.out.println("회원탈퇴");
+    	System.out.println("회원 정보 수정");
         
         int updated = memberService.memberUpdate(member);
         Map<String, Object> map = new HashMap<>();

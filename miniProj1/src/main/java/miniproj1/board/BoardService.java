@@ -1,6 +1,9 @@
 package miniproj1.board;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.ServletException;
 
 import miniproj1.board.BoardDAO;
 
@@ -16,31 +19,33 @@ public class BoardService {
         // TODO Auto-generated constructor stub
 	}
 	
-	public List<BoardVO> boardList(BoardVO board){
+	public List<BoardVO> boardList(BoardVO board) throws ServletException, IOException {
 		return boardDAO.boardList(board);
 	}
 	
-	public BoardVO boardView(BoardVO board){
+	public BoardVO boardView(BoardVO board) throws ServletException, IOException {
 		return boardDAO.boardView(board);
 	}
 	
-	public int boardDelete(BoardVO board){
+	public int boardDelete(BoardVO board)throws ServletException, IOException {
 		return boardDAO.boardDelete(board);
 	}
 	
-	public BoardVO boardUpdateForm(BoardVO board){
+	public BoardVO boardUpdateForm(BoardVO board)throws ServletException, IOException {
+		System.out.println("업데이트 폼 왔다감 : " + board);
 		return boardDAO.boardView(board);
 	}
 	
-	public int boardUpdate(BoardVO board){
+	public int boardUpdate(BoardVO board) throws ServletException, IOException {
+		System.out.println("업데이트까지 왔음 : " + board);
 		return boardDAO.boardUpdate(board);
 	}
 	
-	public BoardVO boardInsertForm(BoardVO board){
+	public BoardVO boardInsertForm(BoardVO board) throws ServletException, IOException {
 		return boardDAO.boardView(board);
 	}
 	
-	public int boardInsert(BoardVO board){
+	public int boardInsert(BoardVO board) throws ServletException, IOException  {
 		return boardDAO.boardInsert(board);
 	}
 }

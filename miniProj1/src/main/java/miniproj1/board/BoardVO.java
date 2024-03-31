@@ -12,31 +12,40 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BoardVO {
-	private int bno;
+	private String bno;
 	private String btitle;
 	private String bcontent;
-	private Date bdate;
+	private String bdate;
 	private String bwriter;
 		
 	private String action;
 	private String searchKey;
 	
-	public BoardVO(int bno, String btitle, Date bdate, String bwriter) {
-		this.bno =bno;
-		this.btitle =btitle;
-		this.bdate =bdate;
-		this.bwriter =bwriter;
-	}
-	
+
 	public boolean isEmptySearchKey() {
 		return searchKey==null || searchKey.length() ==0;
 	}
 
-	public BoardVO(int bno, String btitle, String bcontent,  String bwriter, Date bdate) {
-		this.bno = bno;
-		this.btitle =btitle;
-		this.bcontent = bcontent;
-		this.bwriter =bwriter;
-		this.bdate =bdate;
+
+//	public BoardVO(String bno, String btitle, String bdate, String bwriter) {
+//		this(bno, btitle, bdate, bwriter, "", "", "");
+//	}
+
+	public BoardVO(String bno, String btitle, String bcontent, String bwriter, String bdate) {
+		this.bno=bno;
+		this.btitle=btitle;
+		this.bcontent=bcontent;
+		this.bwriter=bwriter;
+		this.bdate=bdate;
 	}
+
+
+	public BoardVO(String bno, String btitle, String bwriter, String bdate) {
+		this.bno=bno;
+		this.btitle=btitle;
+		this.bwriter=bwriter;
+		this.bdate=bdate;
+	}
+
+	
 }
