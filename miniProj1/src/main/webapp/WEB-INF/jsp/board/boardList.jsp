@@ -81,15 +81,26 @@
         </c:forEach>
     </table>
     
-    <form id="write" action="board" method="get" style="margin-left: 180px;">
+    <form id="login-menu" action="board" method="get" style="margin-left: 180px;">
     	<input type="hidden" name="action" value="boardInsertForm">
     	<input type="submit" value="게시글 작성">
+    	
+    	<input type="button" value="전체 삭제" onclick="jsClear()">
     </form>
     
     <script>
 	function jsView(bno) {
 		bno.value = bno;
-		boardView.submit();
+		boardInsertForm.submit();
+	}
+	
+	function jsClear() {
+	    if (confirm("정말로 삭제하시겠습니까?")) {
+	        action.value = "boardClear";
+	        
+	        listForm.submit();
+	        alert("게시물이 전체 삭제되었습니다.");
+	    }
 	}
 	</script>  
 </body>

@@ -46,4 +46,12 @@ public class BoardService {
 	public int boardInsert(BoardVO board) throws ServletException, IOException  {
 		return boardDAO.boardInsert(board);
 	}
+
+	public int boardClear(BoardVO board) throws ServletException, IOException {
+		return boardDAO.boardClear(board);
+	}
+	
+	public int getTotalBoardCount() {
+	    return boardDAO.getTotalBoardCount();
+	}
 }

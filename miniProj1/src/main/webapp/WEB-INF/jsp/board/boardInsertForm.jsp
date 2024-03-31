@@ -29,13 +29,13 @@
             
             
             <div class="form-group">
-             <label>제목 : </label>
-             <input type="text" id="btitle" name="btitle" value="${board.btitle}" required="required"> <br/>
+             	<label>제목 : </label>
+                <textarea id="btitle" name="btitle" rows="1" cols="40" required>${board.btitle}</textarea>
             </div>
             
             <div class="form-group">
                 <label>내용 : </label>
-                <input type="text" id="bcontent" name="bcontent" value="${board.bcontent}">
+                <textarea id="bcontent" name="bcontent" rows="5" cols="40" required>${board.bcontent}</textarea>
             </div>
 
             <br>

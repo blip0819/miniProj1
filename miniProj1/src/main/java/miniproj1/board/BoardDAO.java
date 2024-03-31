@@ -15,8 +15,11 @@ public class BoardDAO {
     private static PreparedStatement boardListPstmt2 = null;
     private static PreparedStatement boardViewPstmt = null;
     private static PreparedStatement boardDeletePstmt = null;
+    private static PreparedStatement boardClearPstmt = null;
     private static PreparedStatement boardUpdatePstmt = null;
     private static PreparedStatement boardInsertPstmt = null;
+    
+    private static PreparedStatement getTotalBoardCountPstmt = null;
 
     static {
 
@@ -34,9 +37,10 @@ public class BoardDAO {
             boardListPstmt2 = conn.prepareStatement("select * from TB_BOARD where btitle like ?");
             boardViewPstmt = conn.prepareStatement("select * from TB_BOARD where bno = ?");
             boardDeletePstmt = conn.prepareStatement("delete from TB_BOARD where bno = ?");
+            boardClearPstmt = conn.prepareStatement("delete from TB_BOARD");
             boardUpdatePstmt = conn.prepareStatement("update TB_BOARD set btitle=?, bcontent=? where bno=?");
             boardInsertPstmt = conn.prepareStatement("insert into TB_BOARD (btitle, bcontent, bdate) values (?, ?, NOW())");
-            
+            getTotalBoardCountPstmt =conn.prepareStatement("SELECT COUNT(*) FROM tb_board");
             
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -109,6 +113,18 @@ public class BoardDAO {
 			return updated;
 		}
 		
+		public int boardClear(BoardVO board) {
+			int updated = 0;
+			try {
+	            updated = boardClearPstmt.executeUpdate();
+	            conn.commit();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+			System.out.println("실행완?" + updated);
+			return updated;
+		}
+		
 		public int boardUpdate(BoardVO board) {
 //			System.out.println("업데이트 DAO 진입 성공 : " + board);
 			int updated = 0;
@@ -135,6 +151,20 @@ public class BoardDAO {
 	            e.printStackTrace();
 	        }
 			return updated;
+		}
+		
+		public int getTotalBoardCount() {
+		    int totalBoardCount = 0;
+		    try {
+		        ResultSet rs = getTotalBoardCountPstmt.executeQuery();
+		        if (rs.next()) {
+		            totalBoardCount = rs.getInt(1);
+		        }
+		        rs.close();
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
+		    return totalBoardCount;
 		}
 
 }

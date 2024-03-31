@@ -75,6 +75,7 @@ public class BoardServlet extends HttpServlet {
 			case "boardList" -> boardController.boardList(request, boardVO);
 			case "boardView" -> boardController.boardView(request, boardVO);
 			case "boardDelete" -> boardController.boardDelete(request, boardVO);
+			case "boardClear" -> boardController.boardClear(request, boardVO);
 			case "boardUpdateForm" -> boardController.boardUpdateForm(request, boardVO);
 			case "boardUpdate" -> boardController.boardUpdate(request, boardVO);
 			case "boardInsertForm" -> boardController.boardInsertForm(request);

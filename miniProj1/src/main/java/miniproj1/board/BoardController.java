@@ -50,6 +50,22 @@ public class BoardController {
 		return "boardDelete";
 		
 	}
+	
+	public Object boardClear(HttpServletRequest request, BoardVO board) throws ServletException, IOException {
+	    int totalBoardCount = boardService.getTotalBoardCount();
+	    int updated = boardService.boardClear(board);
+	    
+	    Map<String, Object> map = new HashMap<>();
+	    if (updated == totalBoardCount) { // 성공
+	        map.put("status", 0);
+	    } else {
+	        map.put("status", -99);
+	        map.put("statusMessage", "게시물 전체 삭제에 실패하였습니다");
+	    }
+	    
+	    return "boardList";
+	}
+
 
 	public Object boardUpdateForm(HttpServletRequest request, BoardVO board) throws ServletException, IOException {
 		System.out.println("게시글 수정 화면");
