@@ -42,7 +42,8 @@ h1 {
 #signup-form,
 #login-form,
 #update-form,
-#member-view {
+#member-view,
+#insert-form {
     padding: 25px 50px 50px;
     background-color: #faf6d9;
     text-align: left;

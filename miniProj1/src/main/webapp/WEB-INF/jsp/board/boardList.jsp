@@ -82,7 +82,7 @@
     </table>
     
     <form id="write" action="board" method="get" style="margin-left: 180px;">
-    	<input type="hidden" name="action" value="boardInsert">
+    	<input type="hidden" name="action" value="boardInsertForm">
     	<input type="submit" value="게시글 작성">
     </form>
     

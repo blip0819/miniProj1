@@ -58,6 +58,7 @@ public class BoardDAO {
 	            	System.out.println("DAO 전체 목록 정상 작동");
 	            	rs = boardListPstmt.executeQuery();
 	            }
+
 	            while (rs.next()) {
 	                BoardVO boardVO = new BoardVO(
 	                		  rs.getString("bno")
@@ -109,7 +110,7 @@ public class BoardDAO {
 		}
 		
 		public int boardUpdate(BoardVO board) {
-			System.out.println("업데이트 DAO 진입 성공 : " + board);
+//			System.out.println("업데이트 DAO 진입 성공 : " + board);
 			int updated = 0;
 			try {
 				boardUpdatePstmt.setString(1, board.getBtitle());
@@ -120,7 +121,6 @@ public class BoardDAO {
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
-			System.out.println(board);
 			return updated;
 		}
 		

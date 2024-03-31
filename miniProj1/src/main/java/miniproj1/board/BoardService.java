@@ -32,12 +32,10 @@ public class BoardService {
 	}
 	
 	public BoardVO boardUpdateForm(BoardVO board)throws ServletException, IOException {
-		System.out.println("업데이트 폼 왔다감 : " + board);
 		return boardDAO.boardView(board);
 	}
 	
 	public int boardUpdate(BoardVO board) throws ServletException, IOException {
-		System.out.println("업데이트까지 왔음 : " + board);
 		return boardDAO.boardUpdate(board);
 	}
 	

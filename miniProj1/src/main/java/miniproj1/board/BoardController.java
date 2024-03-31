@@ -47,14 +47,13 @@ public class BoardController {
 			map.put("statusMessage", "게시물 삭제에 실패하였습니다");
 		}
 		
-		return map;
+		return "boardDelete";
 		
 	}
 
 	public Object boardUpdateForm(HttpServletRequest request, BoardVO board) throws ServletException, IOException {
 		System.out.println("게시글 수정 화면");
 		request.setAttribute("board", boardService.boardUpdateForm(board));
-		System.out.println("컨트롤러 결과 : " + board);
 		return "boardUpdateForm";
 	}
 
@@ -81,14 +80,15 @@ public class BoardController {
 
 	public Object boardInsert(HttpServletRequest request, BoardVO board) throws ServletException, IOException {
 		System.out.println("게시글 게시 완료");
-		Map<String, Object> map = new HashMap<>();
-		int updated = boardService.boardInsert(board);
 		
+		int updated = boardService.boardInsert(board);
+
+		Map<String, Object> map = new HashMap<>();
 		if (updated == 1) { //성공
 			map.put("status", 0);
 		} else {
 			map.put("status", -99);
-			map.put("statusMessage", "회원 가입이 실패하였습니다");
+			map.put("statusMessage", "게시글 작성에 실패했습니다.");
 		}
 		return map;
 	}

@@ -34,8 +34,8 @@
             <script>
             function jsDelete() {
                 if (confirm("정말로 삭제하시겠습니까?")) {
-                    document.getElementById("action").value = "boardDelete";
-                    document.getElementById("viewForm").submit();
+                	action.value = "boardDelete";
+                    viewForm.submit();
                 }
             }
             

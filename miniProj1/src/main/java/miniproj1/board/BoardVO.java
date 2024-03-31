@@ -26,11 +26,6 @@ public class BoardVO {
 		return searchKey==null || searchKey.length() ==0;
 	}
 
-
-//	public BoardVO(String bno, String btitle, String bdate, String bwriter) {
-//		this(bno, btitle, bdate, bwriter, "", "", "");
-//	}
-
 	public BoardVO(String bno, String btitle, String bcontent, String bwriter, String bdate) {
 		this.bno=bno;
 		this.btitle=btitle;
