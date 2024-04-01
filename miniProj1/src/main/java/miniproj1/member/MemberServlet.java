@@ -82,6 +82,7 @@ public class MemberServlet extends HttpServlet {
 		case "signUpForm" -> memberController.signUpForm(request);
 		case "memberInsert" -> memberController.memberInsert(request, memberVO);
 		case "existedMemberID" -> memberController.existedMemberID(request, memberVO);
+		case "loginForm" -> "loginForm";
 		default -> "";
 		};
 		

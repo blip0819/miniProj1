@@ -25,8 +25,8 @@
         <div id="member-view">
             <h1>게시글 자세히보기</h1>
             <label>게시글 번호 : ${board.bno}</label> <br>
-            <label>제목 : ${board.btitle}</label> <br>
-            <label>내용 : ${board.bcontent}</label><br>
+            <label>제목 : ${board.btitle}</label> <br><br>
+            <label>내용 : ${board.bcontent}</label><br><br>
             <label>작성자: ${board.bwriter}</label><br>
             <label>작성일: ${board.bdate}</label><br>
             
